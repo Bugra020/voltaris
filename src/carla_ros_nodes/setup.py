@@ -1,3 +1,6 @@
+import os
+from glob import glob
+
 from setuptools import find_packages, setup
 
 package_name = "carla_ros_nodes"
@@ -9,6 +12,10 @@ setup(
     data_files=[
         ("share/ament_index/resource_index/packages", ["resource/" + package_name]),
         ("share/" + package_name, ["package.xml"]),
+        (
+            os.path.join("share", package_name, "launch"),
+            glob(os.path.join("launch", "*launch.[pxy][yma]*")),
+        ),
     ],
     install_requires=["setuptools"],
     zip_safe=True,
@@ -19,9 +26,9 @@ setup(
     tests_require=["pytest"],
     entry_points={
         "console_scripts": [
-            "lidar_publisher = carla_ros_bridge_nodes.carla_lidar_publisher:main",
-            "static_tf_publisher = carla_ros_bridge_nodes.carla_static_tf_publisher:main",
-            "dynamic_tf_publisher = carla_ros_bridge_nodes.carla_dynamic_tf_publisher:main",
+            "lidar_publisher = carla_ros_nodes.carla_lidar_publisher:main",
+            "static_tf_publisher = carla_ros_nodes.carla_static_tf_publisher:main",
+            "dynamic_tf_publisher = carla_ros_nodes.carla_dynamic_tf_publisher:main",
         ],
     },
 )
